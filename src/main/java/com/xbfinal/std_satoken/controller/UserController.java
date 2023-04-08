@@ -1,6 +1,7 @@
 package com.xbfinal.std_satoken.controller;
 
 import cn.dev33.satoken.stp.StpUtil;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,4 +33,10 @@ public class UserController {
     public String isLogin() {
         return "当前会话是否登录：" + StpUtil.isLogin();
     }
+
+    @GetMapping("info")
+    public String info() {
+        return "当前会话是否登录：" + StpUtil.isLogin();
+    }
+
 }
