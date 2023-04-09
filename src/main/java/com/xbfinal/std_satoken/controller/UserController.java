@@ -1,14 +1,13 @@
 package com.xbfinal.std_satoken.controller;
 
+import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
+import cn.dev33.satoken.util.SaResult;
 import cn.hutool.core.bean.BeanUtil;
 import com.xbfinal.std_satoken.entity.User;
 import com.xbfinal.std_satoken.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @Title: UserController
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @Date 2023/4/8 16:32
  * @描述:
  */
+
 
 @RestController
 @RequestMapping("/user")
@@ -36,7 +36,7 @@ public class UserController {
 //        return "登录失败";
 //    }
     @GetMapping("doLogin/{username}/{password}")
-    public String doLogin(
+    public SaResult doLogin(
             @PathVariable("username") String username,
             @PathVariable("password") String password) {
 
@@ -45,14 +45,18 @@ public class UserController {
         // 此处仅作模拟示例，真实项目需要从数据库中查询数据进行比对
         User user = userService.getByName(username);
         if(BeanUtil.isEmpty(user)){
-            return "登录失败";
+            return SaResult.error();//失败
+
         }
 
         if(user.getName().equals(username) && user.getPassword().equals(password)) {
+
             StpUtil.login(user.getName());
-            return "登录成功";
+
+            SaTokenInfo tokenInfo = StpUtil.getTokenInfo();
+            return SaResult.data(tokenInfo);
         }
-        return "登录失败";
+        return SaResult.error();//失败
     }
 
     // 查询登录状态，浏览器访问： http://localhost:8081/user/isLogin
