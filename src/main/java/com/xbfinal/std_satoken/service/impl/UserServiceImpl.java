@@ -5,7 +5,6 @@ import com.xbfinal.std_satoken.entity.User;
 import com.xbfinal.std_satoken.mapper.UserMapper;
 import com.xbfinal.std_satoken.service.UserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**

@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Configuration;
  */
 
 @Configuration
-@MapperScan("com/xbfinal/std_satoken/mapper")
+@MapperScan(basePackages = {"com.xbfinal.std_satoken.mapper"})
 public class EduConfig {
     /**
      * 逻辑删除插件

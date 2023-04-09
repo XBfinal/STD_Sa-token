@@ -6,6 +6,7 @@ import com.xbfinal.std_satoken.entity.User;
 import com.xbfinal.std_satoken.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,7 +25,7 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    // 测试登录，浏览器访问： http://localhost:8081/user/doLogin?username=zhang&password=123456
+    // 测试登录，浏览器访问： http://localhost:8081/user/doLogin/zhang/123456
 //    @RequestMapping("doLogin")
 //    public String doLogin(String username, String password) {
 //        // 此处仅作模拟示例，真实项目需要从数据库中查询数据进行比对
@@ -34,8 +35,13 @@ public class UserController {
 //        }
 //        return "登录失败";
 //    }
-    @RequestMapping("doLogin")
-    public String doLogin(String username, String password) {
+    @GetMapping("doLogin/{username}/{password}")
+    public String doLogin(
+            @PathVariable("username") String username,
+            @PathVariable("password") String password) {
+
+        System.out.println(username);
+        System.out.println(password);
         // 此处仅作模拟示例，真实项目需要从数据库中查询数据进行比对
         User user = userService.getByName(username);
         if(BeanUtil.isEmpty(user)){
