@@ -1,5 +1,6 @@
 package com.xbfinal.std_satoken.controller;
 
+import cn.dev33.satoken.secure.SaSecureUtil;
 import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.dev33.satoken.util.SaResult;
@@ -45,18 +46,20 @@ public class UserController {
         // 此处仅作模拟示例，真实项目需要从数据库中查询数据进行比对
         User user = userService.getByName(username);
         if(BeanUtil.isEmpty(user)){
-            return SaResult.error();//失败
+            return SaResult.error().setCode(2001);//失败
 
         }
+        String SecurePassword = SaSecureUtil.md5(password);//Md5加密
+        System.out.println(SecurePassword);
 
-        if(user.getName().equals(username) && user.getPassword().equals(password)) {
+        if(user.getName().equals(username) && user.getPassword().equals(SecurePassword)) {
 
             StpUtil.login(user.getName());
 
             SaTokenInfo tokenInfo = StpUtil.getTokenInfo();
             return SaResult.data(tokenInfo);
         }
-        return SaResult.error();//失败
+        return SaResult.error().setCode(2001);//失败
     }
 
     // 查询登录状态，浏览器访问： http://localhost:8081/user/isLogin
