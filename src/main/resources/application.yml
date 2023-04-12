@@ -20,6 +20,8 @@ sa-token:
   is-log: false
 
 spring:
+  profiles:
+    active: dev
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/satoekn?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
@@ -55,5 +57,5 @@ spring:
         # 连接池中的最小空闲连接
         min-idle: 0
     password: abc123456
-
-
+logging:
+  config: classpath:logback-spring.xml

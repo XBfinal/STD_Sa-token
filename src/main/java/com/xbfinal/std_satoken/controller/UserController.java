@@ -10,7 +10,6 @@ import com.xbfinal.std_satoken.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.data.redis.core.TimeoutUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -29,8 +28,10 @@ import java.util.concurrent.TimeUnit;
 @RequestMapping("/user")
 public class UserController {
 
+
     @Resource
-    private StringRedisTemplate redisTemplate;
+    private StringRedisTemplate stringRedisTemplate;
+
 
     @Autowired
     UserService userService;
@@ -67,7 +68,7 @@ public class UserController {
 
             SaTokenInfo tokenInfo = StpUtil.getTokenInfo();
 
-            redisTemplate.opsForValue().set("user"+"zhang",username,3, TimeUnit.MINUTES);
+            stringRedisTemplate.opsForValue().set("user"+"zhang",username,3, TimeUnit.MINUTES);
 
             return SaResult.data(tokenInfo);
         }
@@ -75,9 +76,9 @@ public class UserController {
     }
 
     // 查询登录状态，浏览器访问： http://localhost:8081/user/isLogin
-    @RequestMapping("isLogin")
+    @GetMapping("isLogin")
     public String isLogin() {
-        redisTemplate.expire("user"+"zhang",3,TimeUnit.MINUTES);
+        stringRedisTemplate.expire("user"+"zhang",3,TimeUnit.MINUTES);
         return "当前会话是否登录：" + StpUtil.isLogin();
 
 
