@@ -1,3 +1,5 @@
 server:
   # 端口
   port: 8080
+xbfinal:
+  jwtkey: "xbfinal"
