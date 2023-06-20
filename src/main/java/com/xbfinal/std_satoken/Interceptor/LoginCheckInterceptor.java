@@ -31,6 +31,7 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
         if(StrUtil.isEmpty(jwt)){
             //不存在
             log.info("token为空");
+            log.info("令牌为空");
             String jsonStr = JSONUtil.toJsonStr(SaResult.error("没有登录").toString());
             response.getWriter().write(jsonStr);
             return false;
@@ -41,6 +42,7 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 
         }catch (Exception e){
             log.info("token为空");
+
             String jsonStr = JSONUtil.toJsonStr(SaResult.error("没有登录").toString());
             response.getWriter().write(jsonStr);
             return false;

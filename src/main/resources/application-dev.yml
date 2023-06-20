@@ -1,5 +1,18 @@
 server:
   # 端口
-  port: 8080
+  port: 8082
 xbfinal:
   jwtkey: "xbfinal"
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/satoken?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456
+
+    druid:
+      initial-size: 3 # 初始化时建立物理连接的个数。默认0
+      max-active: 10 # 最大连接池数量，默认8
+      min-idle: 1 # 最小连接池数量
+      max-wait: 2000 # 获取连接时最大等待时间，单位毫秒。

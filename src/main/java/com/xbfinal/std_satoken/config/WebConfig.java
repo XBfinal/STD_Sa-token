@@ -18,12 +18,19 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Autowired
     LoginCheckInterceptor loginCheckInterceptor;
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(loginCheckInterceptor)
-                .addPathPatterns("/**")//拦截所以资源
-                .excludePathPatterns("/user/doLogin/**")//排除路径
-        ;
 
-    }
+    /**
+     * 注册拦截器的方法
+     * @param registry
+     */
+//    @Override
+//    public void addInterceptors(InterceptorRegistry registry) {
+//        registry.addInterceptor(loginCheckInterceptor)
+//                .addPathPatterns("/**")//拦截所以资源
+//                .excludePathPatterns("/user/doLogin/**")//排除路径
+//                .excludePathPatterns("/user/isLogin")
+////                .order(1) 有多个拦截器的话设置优先级 数字越小优先级越高
+//        ;
+//
+//    }
 }

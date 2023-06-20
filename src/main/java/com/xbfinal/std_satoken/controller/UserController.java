@@ -83,7 +83,7 @@ public class UserController {
 
 
     }
-
+//http://localhost:8082/user/info
     @GetMapping("info")
     public String info() {
         return "当前会话是否登录：" + StpUtil.isLogin();
